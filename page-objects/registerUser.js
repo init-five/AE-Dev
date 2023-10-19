@@ -15,7 +15,7 @@ export class RegisterUser {
     constructor(page) {
         this.page = page;
         this.signupButton = page.getByRole("link", {
-            name: " Signup / Login",
+            name: " Signup / Login",
         });
         this.newusersignupText = page.getByRole("heading", {
             name: "New User Signup!",

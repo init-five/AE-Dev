@@ -16,28 +16,36 @@ export class Login {
         );
     }
 
-    loginWithValidCredentials = async (userEmail, userPassword) => {
+    navigateToLoginPage = async () => {
         await this.userLoginButton.waitFor();
         await this.userLoginButton.click();
         const loginPageText = await this.loginToYourAccountText.innerText();
-        //console.warn(loginPageText);
         await expect(this.loginToYourAccountText).toHaveText(loginPageText);
+    };
+
+    loginWithCredentials = async (userEmail, userPassword) => {
         await this.emailInputField.fill(userEmail);
         await this.passwordInputField.fill(userPassword);
         await this.loginButton.click();
+    };
+
+    loginWithValidCredentials = async (userEmail, userPassword) => {
+        await this.navigateToLoginPage();
+        await this.loginWithCredentials(userEmail, userPassword);
         await expect(this.logoutButton).toBeVisible();
     };
 
-    loginwithInvalidCredentials = async (userEmail, userPassword) => {
-        await this.userLoginButton.waitFor();
-        await this.userLoginButton.click();
-        const loginPageText = await this.loginToYourAccountText.innerText();
-        //console.warn(loginPageText);
-        await expect(this.loginToYourAccountText).toHaveText(loginPageText);
-        await this.emailInputField.fill(userEmail);
-        await this.passwordInputField.fill(userPassword);
-        await this.loginButton.click();
+    loginWithInvalidCredentials = async (userEmail, userPassword) => {
+        await this.navigateToLoginPage();
+        await this.loginWithCredentials(userEmail, userPassword);
         const errorMessage = await this.errorMessageText.innerText();
         await expect(this.errorMessageText).toHaveText(errorMessage);
+    };
+
+    logoutUser = async (userEmail, userPassword) => {
+        await this.loginWithValidCredentials(userEmail, userPassword);
+        await this.logoutButton.click();
+        await this.navigateToLoginPage();
+        await expect(this.logoutButton).not.toBeVisible();
     };
 }

@@ -1,5 +1,5 @@
 import { expect } from "playwright/test";
-import { fa, faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 
 const name = faker.person.firstName();
 const email = `${name}cd@yopmail.com`;
@@ -50,12 +50,19 @@ export class RegisterUser {
             name: " Delete Account",
         });
         this.accountDeletedText = page.getByText("Account Deleted!");
+        this.emailAlreadyExistsTest = page.getByText(
+            "Email Address already exist!"
+        );
     }
 
-    registerNewUser = async () => {
+    navigateToSignupPage = async () => {
         await this.signupButton.waitFor();
         await this.signupButton.click();
         await expect(this.newusersignupText).toHaveText("New User Signup!");
+    };
+
+    registerNewUser = async () => {
+        await this.navigateToSignupPage();
         await this.nameInputField.waitFor();
         await this.nameInputField.type(name);
         await this.emailInputField.type(email);
@@ -84,5 +91,16 @@ export class RegisterUser {
         // );
         await this.deleteAccountButton.click();
         await expect(this.accountDeletedText).toHaveText("Account Deleted!");
+    };
+
+    registerWithExistingUser = async (useremail) => {
+        await this.navigateToSignupPage();
+        await this.nameInputField.waitFor();
+        await this.nameInputField.type(name);
+        await this.emailInputField.type(useremail);
+        await this.registerButton.click();
+        await expect(this.emailAlreadyExistsTest).toHaveText(
+            "Email Address already exist!"
+        );
     };
 }

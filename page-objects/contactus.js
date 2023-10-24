@@ -33,9 +33,7 @@ export class Contactus {
         await this.emailInputField.fill(email);
         await this.subjectInputField.fill(subject);
         await this.messageInputField.fill(message);
-        await this.chooseFileButton.setInputFiles(
-            "D:/ecommerceDev/upload/image.png"
-        );
+        await this.chooseFileButton.setInputFiles("./upload/image.png");
         // handling alert box
         this.page.on("dialog", (dialog) => {
             console.warn(dialog.message());

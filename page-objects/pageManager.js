@@ -3,6 +3,7 @@ import { RegisterUser } from "./registerUser";
 import { Login } from "./login";
 import { Contactus } from "./contactus";
 import { TestCasePage } from "./testCasePage";
+import { ProductsPage } from "./productsPage";
 export class PageManager {
     constructor(page) {
         this.page = page;
@@ -11,6 +12,7 @@ export class PageManager {
         this.userLogin = new Login(this.page);
         this.contactus = new Contactus(this.page);
         this.testcases = new TestCasePage(this.page);
+        this.productsPage = new ProductsPage(this.page);
     }
 
     navigateToHomePage = async () => {
@@ -31,5 +33,9 @@ export class PageManager {
 
     testcase = async () => {
         return this.testcases;
+    };
+
+    products = async () => {
+        return this.productsPage;
     };
 }

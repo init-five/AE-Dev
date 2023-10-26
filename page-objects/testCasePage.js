@@ -7,13 +7,13 @@ export class TestCasePage {
             name: " Test Cases",
             exact: true,
         });
-        this.testcaseText = page.locator('[class="title text-center"]');
+        this.testcaseText = page.locator("b");
     }
 
     testcasespage = async () => {
         await this.testcaseButton.waitFor();
         await this.testcaseButton.click();
-        await this.page.waitForURL("/test_cases");
+        await this.page.waitForURL(/\/test_cases/);
         await expect(this.testcaseText).toHaveText("Test Cases");
     };
 }

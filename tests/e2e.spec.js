@@ -16,5 +16,11 @@ test("verify all products page", async ({ page }) => {
 test("Verify Subscription in home page", async ({ page }) => {
 	const pm = new PageManager(page);
 	await (await pm.navigateToHomePage()).visit();
-	await (await pm.homepage()).subscription();
+	await (await pm.homepage()).subscriptionInHomePage();
+});
+
+test("Verify subscription in cart page", async ({ page }) => {
+	const pm = new PageManager(page);
+	await (await pm.navigateToHomePage()).visit();
+	await (await pm.homepage()).subscriptionInCartPage();
 });

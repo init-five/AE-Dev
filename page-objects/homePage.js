@@ -14,15 +14,27 @@ export class HomePage {
 		this.sucessfulSusbscriptionText = page.getByText(
 			"You have been successfully subscribed!"
 		);
+		this.cartButton = page.getByRole("link", { name: " Cart" });
 	}
 
 	subscription = async () => {
-		await this.subscriptionText.waitFor();
 		await expect(this.subscriptionText).toHaveText("Subscription");
 		await this.emailInputField.fill(email);
 		await this.subscriptionButton.click();
 		await expect(this.sucessfulSusbscriptionText).toHaveText(
 			"You have been successfully subscribed!"
 		);
+	};
+
+	subscriptionInHomePage = async () => {
+		await this.subscriptionText.waitFor();
+		await this.subscription();
+	};
+
+	subscriptionInCartPage = async () => {
+		await this.cartButton.waitFor();
+		await this.cartButton.click();
+		await this.page.waitForURL(/\/view_cart/);
+		await this.subscription();
 	};
 }

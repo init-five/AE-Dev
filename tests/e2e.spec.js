@@ -24,3 +24,9 @@ test("Verify subscription in cart page", async ({ page }) => {
 	await (await pm.navigateToHomePage()).visit();
 	await (await pm.homepage()).subscriptionInCartPage();
 });
+
+test("adding products to cart", async ({ page }) => {
+	const pm = new PageManager(page);
+	await (await pm.navigateToHomePage()).visit();
+	await (await pm.products()).addingProductsinCart();
+});

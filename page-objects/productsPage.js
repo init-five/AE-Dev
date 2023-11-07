@@ -27,7 +27,9 @@ export class ProductsPage {
 			'[class="nav nav-pills nav-justified"]'
 		);
 		this.addQuantityFied = page.locator('[id="quantity"]');
-		this.addToCartButton = page.locator('[class="btn btn-default cart"]');
+		this.addToCartButtoninProductDetail = page.locator(
+			'[class="btn btn-default cart"]'
+		);
 		this.quantityofProductOrdered = page.locator('[class="cart_quantity"]');
 	}
 
@@ -71,7 +73,7 @@ export class ProductsPage {
 		await this.page.waitForURL(/\/product_details\/1/), { timeout: 3000 };
 		await this.addQuantityFied.clear();
 		await this.addQuantityFied.fill("4");
-		await this.addToCartButton.click();
+		await this.addToCartButtoninProductDetail.click();
 		await this.viewCartButton.click();
 		await this.page.waitForURL(/\/view_cart/), { timeout: 3000 };
 		//const quantityordered = this.quantityofProductOrdered.innerText();

@@ -23,6 +23,12 @@ export class ProductsPage {
 			name: "Continue Shopping",
 		});
 		this.viewCartButton = page.getByRole("link", { name: "View Cart" });
+		this.viewProductButton = page.locator(
+			'[class="nav nav-pills nav-justified"]'
+		);
+		this.addQuantityFied = page.locator('[id="quantity"]');
+		this.addToCartButton = page.locator('[class="btn btn-default cart"]');
+		this.quantityofProductOrdered = page.locator('[class="cart_quantity"]');
 	}
 
 	navigateToProducts = async () => {
@@ -56,5 +62,20 @@ export class ProductsPage {
 		await this.addToCartButton.nth(1).click();
 		await this.viewCartButton.click();
 		await this.page.waitForURL(/\/view_cart/), { timeout: 3000 };
+	};
+
+	verifyProductQuantityinCart = async () => {
+		await this.navigateToProducts();
+		await this.viewProductButton.nth(0).waitFor();
+		await this.viewFirstProduct.nth(0).click();
+		await this.page.waitForURL(/\/product_details\/1/), { timeout: 3000 };
+		await this.addQuantityFied.clear();
+		await this.addQuantityFied.fill("4");
+		await this.addToCartButton.click();
+		await this.viewCartButton.click();
+		await this.page.waitForURL(/\/view_cart/), { timeout: 3000 };
+		//const quantityordered = this.quantityofProductOrdered.innerText();
+		//console.warn(quantityordered);
+		await expect(this.quantityofProductOrdered).toHaveText("4");
 	};
 }

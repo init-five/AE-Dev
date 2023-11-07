@@ -30,3 +30,9 @@ test("adding products to cart", async ({ page }) => {
 	await (await pm.navigateToHomePage()).visit();
 	await (await pm.products()).addingProductsinCart();
 });
+
+test("verify product quauntity in cart", async ({ page }) => {
+	const pm = new PageManager(page);
+	await (await pm.navigateToHomePage()).visit();
+	await (await pm.products()).verifyProductQuantityinCart();
+});

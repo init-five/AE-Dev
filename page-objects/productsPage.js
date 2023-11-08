@@ -3,6 +3,7 @@ import { expect } from "@playwright/test";
 export class ProductsPage {
 	constructor(page) {
 		this.page = page;
+		this.cartButton = page.locator("//a[normalize-space()='Cart']");
 		this.productsButton = page.getByRole("link", { name: " Products" });
 		this.allProductsText = page.getByRole("heading", {
 			name: "All Products",
@@ -31,6 +32,13 @@ export class ProductsPage {
 			'[class="btn btn-default cart"]'
 		);
 		this.quantityofProductOrdered = page.locator('[class="cart_quantity"]');
+		this.proceedToCheckoutButton = page.locator(
+			'[class="btn btn-default check_out"]'
+		);
+		this.loginandRegisterButton = page.getByRole("link", {
+			name: "Register / Login",
+		});
+		this.placeOrderButton = page.getByText("Place Order");
 	}
 
 	navigateToProducts = async () => {
@@ -79,5 +87,21 @@ export class ProductsPage {
 		//const quantityordered = this.quantityofProductOrdered.innerText();
 		//console.warn(quantityordered);
 		await expect(this.quantityofProductOrdered).toHaveText("4");
+	};
+
+	proceedToCheckout = async () => {
+		await this.proceedToCheckoutButton.waitFor();
+		await this.proceedToCheckoutButton.click();
+		await this.loginandRegisterButton.click();
+		await this.page.waitForURL(/\/login/), { timeout: 3000 };
+	};
+
+	navigatingTocartandProceedingToCheckout = async () => {
+		//await this.cartButton.waitFor();
+		await this.cartButton.click();
+		await this.proceedToCheckoutButton.waitFor();
+		await this.proceedToCheckoutButton.click();
+		await this.page.waitForURL(/\/checkout/), { timeout: 3000 };
+		await this.placeOrderButton.click();
 	};
 }

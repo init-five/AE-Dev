@@ -37,12 +37,12 @@ test("verify product quauntity in cart", async ({ page }) => {
 	await (await pm.products()).verifyProductQuantityinCart();
 });
 
-// test("Place Order: Register while Checkout", async ({ page }) => {
-// 	const pm = new PageManager(page);
-// 	await (await pm.navigateToHomePage()).visit();
-// 	await (await pm.products()).addingProductsinCart();
-// 	await (await pm.products()).proceedToCheckout();
-// 	await (await pm.registerNewUser()).registerNewUser();
-// 	await (await pm.products()).navigatingTocartandProceedingToCheckout();
-// 	await (await pm.payment()).paymentbyCard();
-// });
+test("Place Order: Register while Checkout", async ({ page }) => {
+	const pm = new PageManager(page);
+	await (await pm.navigateToHomePage()).visit();
+	await (await pm.products()).addingProductsinCart();
+	await (await pm.products()).proceedToCheckout();
+	await (await pm.registerNewUser()).registerNewUser();
+	await (await pm.products()).navigatingTocartandProceedingToCheckout();
+	await (await pm.payment()).paymentbyCard();
+});

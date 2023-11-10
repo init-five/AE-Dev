@@ -98,7 +98,8 @@ export class ProductsPage {
 
 	navigatingTocartandProceedingToCheckout = async () => {
 		//await this.cartButton.waitFor();
-		await this.cartButton.click();
+		//await this.cartButton.click();
+		await this.page.goto("https://automationexercise.com/view_cart");
 		await this.proceedToCheckoutButton.waitFor();
 		await this.proceedToCheckoutButton.click();
 		await this.page.waitForURL(/\/checkout/), { timeout: 3000 };

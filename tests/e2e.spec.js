@@ -42,7 +42,20 @@ test("Place Order: Register while Checkout", async ({ page }) => {
 	await (await pm.navigateToHomePage()).visit();
 	await (await pm.products()).addingProductsinCart();
 	await (await pm.products()).proceedToCheckout();
+	await await (await pm.products()).proceedToCheckOutLoginRegister();
 	await (await pm.registerNewUser()).registerNewUser();
 	await (await pm.products()).navigatingTocartandProceedingToCheckout();
 	await (await pm.payment()).paymentbyCard();
+	await (await pm.registerNewUser()).deleteNewUserAccount();
+});
+
+test("Place Order: Register before Checkout", async ({ page }) => {
+	const pm = new PageManager(page);
+	await (await pm.navigateToHomePage()).visit();
+	await (await pm.registerNewUser()).registerNewUser();
+	await (await pm.products()).addingProductsinCart();
+	await (await pm.products()).proceedToCheckout();
+	await (await pm.products()).navigatingTocartandProceedingToCheckout();
+	await (await pm.payment()).paymentbyCard();
+	await (await pm.registerNewUser()).deleteNewUserAccount();
 });

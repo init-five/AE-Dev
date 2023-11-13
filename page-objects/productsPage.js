@@ -92,6 +92,9 @@ export class ProductsPage {
 	proceedToCheckout = async () => {
 		await this.proceedToCheckoutButton.waitFor();
 		await this.proceedToCheckoutButton.click();
+	};
+
+	proceedToCheckOutLoginRegister = async () => {
 		await this.loginandRegisterButton.click();
 		await this.page.waitForURL(/\/login/), { timeout: 3000 };
 	};

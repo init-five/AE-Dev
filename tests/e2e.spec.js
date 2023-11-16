@@ -1,5 +1,6 @@
 import { test } from "@playwright/test";
 import { PageManager } from "../page-objects/pageManager";
+import { loginInfo as login } from "../data/loginData";
 
 test("visiting test cases page", async ({ page }) => {
 	const pm = new PageManager(page);
@@ -58,4 +59,15 @@ test("Place Order: Register before Checkout", async ({ page }) => {
 	await (await pm.products()).navigatingTocartandProceedingToCheckout();
 	await (await pm.payment()).paymentbyCard();
 	await (await pm.registerNewUser()).deleteNewUserAccount();
+});
+
+test("Place Order: Login before Checkout", async ({ page }) => {
+	const pm = new PageManager(page);
+	await (await pm.navigateToHomePage()).visit();
+	await (
+		await pm.login()
+	).loginWithValidCredentials(login.email, login.password);
+	await (await pm.products()).addingProductsinCart();
+	await (await pm.products()).navigatingTocartandProceedingToCheckout();
+	await (await pm.payment()).paymentbyCard();
 });

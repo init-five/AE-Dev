@@ -39,6 +39,10 @@ export class ProductsPage {
 			name: "Register / Login",
 		});
 		this.placeOrderButton = page.getByText("Place Order");
+		this.deleteProductButton = page.locator(
+			'[class="cart_quantity_delete"]'
+		);
+		//this.emptyCartButton = page.locator("//p[contains(text(),'Click')]");
 	}
 
 	navigateToProducts = async () => {
@@ -107,5 +111,15 @@ export class ProductsPage {
 		await this.proceedToCheckoutButton.click();
 		await this.page.waitForURL(/\/checkout/), { timeout: 3000 };
 		await this.placeOrderButton.click();
+	};
+
+	removeProductsfromCart = async () => {
+		await this.navigateToProducts();
+		await this.productCardHoverOver.nth(0).waitFor();
+		await this.productCardHoverOver.nth(0).hover();
+		await this.addToCartButton.nth(0).click();
+		await this.viewCartButton.click();
+		await this.page.waitForURL(/\/view_cart/), { timeout: 3000 };
+		await this.deleteProductButton.click();
 	};
 }

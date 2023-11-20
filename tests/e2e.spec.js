@@ -71,3 +71,9 @@ test("Place Order: Login before Checkout", async ({ page }) => {
 	await (await pm.products()).navigatingTocartandProceedingToCheckout();
 	await (await pm.payment()).paymentbyCard();
 });
+
+test("Remove Products From Cart", async ({ page }) => {
+	const pm = new PageManager(page);
+	await (await pm.navigateToHomePage()).visit();
+	await (await pm.products()).removeProductsfromCart();
+});

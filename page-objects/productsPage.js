@@ -42,7 +42,8 @@ export class ProductsPage {
 		this.deleteProductButton = page.locator(
 			'[class="cart_quantity_delete"]'
 		);
-		//this.emptyCartButton = page.locator("//p[contains(text(),'Click')]");
+		this.womenCategoryOpenButton = page.locator('[href="#Women"]');
+		this.dressButton = page.locator('[href="/category_products/1"]');
 	}
 
 	navigateToProducts = async () => {
@@ -121,5 +122,12 @@ export class ProductsPage {
 		await this.viewCartButton.click();
 		await this.page.waitForURL(/\/view_cart/), { timeout: 3000 };
 		await this.deleteProductButton.click();
+	};
+
+	viewCategoryProducts = async () => {
+		await this.womenCategoryOpenButton.waitFor();
+		await this.womenCategoryOpenButton.click();
+		await this.dressButton.click();
+		await this.page.waitForURL(/\/category_products\/1/), { timeout: 3000 };
 	};
 }

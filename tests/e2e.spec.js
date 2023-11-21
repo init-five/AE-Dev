@@ -77,3 +77,9 @@ test("Remove Products From Cart", async ({ page }) => {
 	await (await pm.navigateToHomePage()).visit();
 	await (await pm.products()).removeProductsfromCart();
 });
+
+test("view category products", async ({ page }) => {
+	const pm = new PageManager(page);
+	await (await pm.navigateToHomePage()).visit();
+	await (await pm.products()).viewCategoryProducts();
+});

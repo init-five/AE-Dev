@@ -89,3 +89,11 @@ test("View Brand Products", async ({ page }) => {
 	await (await pm.navigateToHomePage()).visit();
 	await (await pm.homepage()).viewBrandProducts();
 });
+
+test("Search Products and Verify Cart After Login", async ({ page }) => {
+	const pm = new PageManager(page);
+	await (await pm.navigateToHomePage()).visit();
+	await (await pm.products()).searchProductsandVerifyCart();
+	await (await pm.login()).loginWithCredentials(login.email, login.password);
+	await (await pm.products()).searchProductsandVerifyCartAfterLoging();
+});

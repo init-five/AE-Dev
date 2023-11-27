@@ -14,6 +14,7 @@ export class ProductsPage {
 			"//div[@class='productinfo text-center']//p[contains(text(),'Blue Top')]"
 		);
 		this.searchBarInputField = page.locator('[id="search_product"]');
+		this.searchBarButton = page.locator('[id="submit_search"]');
 		this.productCardHoverOver = page.locator(
 			'[class="product-image-wrapper"]'
 		);
@@ -61,6 +62,7 @@ export class ProductsPage {
 		const productnameText = await this.productName.innerText();
 		console.warn(productnameText);
 		await this.searchBarInputField.fill(productnameText);
+		await this.searchBarButton.click();
 		await expect(this.productName).toHaveText(productnameText);
 	};
 
@@ -120,5 +122,22 @@ export class ProductsPage {
 		await this.viewCartButton.click();
 		await this.page.waitForURL(/\/view_cart/), { timeout: 3000 };
 		await this.deleteProductButton.click();
+	};
+
+	searchProductsandVerifyCart = async () => {
+		await this.searchProduct();
+		await this.productCardHoverOver.nth(0).waitFor();
+		await this.productCardHoverOver.nth(0).hover();
+		await this.addToCartButton.nth(0).click();
+		await this.viewCartButton.click();
+		await this.page.waitForURL(/\/view_cart/), { timeout: 3000 };
+		await this.proceedToCheckout();
+		await this.proceedToCheckOutLoginRegister();
+	};
+
+	searchProductsandVerifyCartAfterLoging = async () => {
+		await this.page.goto("https://automationexercise.com/view_cart");
+		await this.page.waitForURL(/\/view_cart/), { timeout: 3000 };
+		await expect(this.viewFirstProduct).toHaveText("Blue Top");
 	};
 }
